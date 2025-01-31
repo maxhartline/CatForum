@@ -1,4 +1,9 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using CatForum.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<CatForumContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("CatForumContext") ?? throw new InvalidOperationException("Connection string 'CatForumContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
