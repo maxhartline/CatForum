@@ -14,13 +14,17 @@
 <body>
 
     <!-- Banner image -->
-    <div class="banner" style="background-image: url('/images/cat-banner.jpg'); background-size: cover; height: 200px;">
-    </div>
+    <div class="banner" style="background-image: url('/images/cat-banner.jpg'); background-size: cover; height: 200px;"></div>
 
+    <!-- Nav bar -->
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom box-shadow">
+
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CatForum</a>
+                <!-- Add logo image -->
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/images/forum-logo.png" alt="Cat Forum Logo" height="70">
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -39,6 +43,7 @@
             </div>
         </nav>
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
