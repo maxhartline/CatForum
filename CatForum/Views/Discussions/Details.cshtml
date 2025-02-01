@@ -23,12 +23,17 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Content)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageFilename)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ImageFilename)
-        </dd>
+        <!-- If there is an image filename, display the image -->
+        @if (!string.IsNullOrEmpty(Model.ImageFilename))
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ImageFilename)
+            </dt>
+            <dd class="col-sm-10">
+                <!-- Show large image for discussion post -->
+                <img src="@Url.Content("~/images/" + Model.ImageFilename)" alt="@Model.Title" class="img-fluid" style="max-width: 100%; height: auto;" />
+            </dd>
+        }
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.CreateDate)
         </dt>
