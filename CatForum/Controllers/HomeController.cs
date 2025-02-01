@@ -32,18 +32,45 @@ namespace CatForum.Controllers
         {
             // Sort discussions by descending order on home page
             var discussions = _context.Discussion
+                              .Include(d => d.Comments) // Include associated comments
                               .OrderByDescending(d => d.CreateDate)
                               .ToList();
             return View(discussions);
         }  
 
-        // Create action method with corresponding view to display a specific discussion when clicked
+        // Action method with corresponding view to display a specific discussion when clicked
         public async Task<IActionResult> GetDiscussion(int? id)
         {
             var discussion = await _context.Discussion
+                .Include(d => d.Comments) // Associated comments
                 .FirstOrDefaultAsync(m => m.DiscussionId == id);
 
             return View(discussion);
+        }
+
+        // Action method for creating comment for a specific discussion post
+        public IActionResult Create(int discussionId)
+        {
+            var comment = new Comment
+            {
+                DiscussionId = discussionId // Set the DiscussionId for the new comment
+            };
+
+            return View(comment);
+        }
+
+        // Action method to process comment submission, add to database, and redirect user back to GerDiscussion page
+        [HttpPost]
+        public IActionResult CreateComment(Comment comment)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Comment.Add(comment);
+                _context.SaveChangesAsync();
+                return RedirectToAction("GetDiscussion", new { id = comment.DiscussionId });
+            }
+
+            return View(comment);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

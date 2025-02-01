@@ -46,7 +46,7 @@
                 }
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CreateDate)
+                    @item.CreateDate.ToString("MMMM d, yyyy")
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.DiscussionId">Edit</a> |

@@ -20,10 +20,16 @@ namespace CatForum.Controllers
         }
 
         // GET: Comments/Create
-        public IActionResult Create()
+        public IActionResult Create(int discussionId)
         {
             ViewData["DiscussionId"] = new SelectList(_context.Discussion, "DiscussionId", "DiscussionId");
-            return View();
+
+            var comment = new Comment
+            {
+                DiscussionId = discussionId
+            };
+
+            return View(comment);
         }
 
         // POST: Comments/Create
@@ -34,9 +40,10 @@ namespace CatForum.Controllers
         {
             if (ModelState.IsValid)
             {
+                comment.CreateDate = DateTime.Now; // Date/time of comment
                 _context.Add(comment);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("GetDiscussion", "Home", new { id = comment.DiscussionId }); // Redirect user to post they commented on
             }
             ViewData["DiscussionId"] = new SelectList(_context.Discussion, "DiscussionId", "DiscussionId", comment.DiscussionId);
             return View(comment);

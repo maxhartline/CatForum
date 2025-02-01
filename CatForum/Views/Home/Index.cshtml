@@ -57,7 +57,7 @@
         </h2>
 
         <!-- Display number of comments, defaulting to 0 if there are none -->
-        <p>@(item.Comments?.Count() ?? 0) comments</p>
+        <p>@(item.Comments?.Count ?? 0) comment@((item.Comments?.Count ?? 0) == 1 ? "" : "s")</p>
 
         <!-- Display date - how long ago post was made -->
         <p>@timeAgo</p>
