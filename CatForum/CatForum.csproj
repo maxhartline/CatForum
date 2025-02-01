@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <Content Remove="Views\Home\CreatePost.cshtml" />
+    <Content Remove="Views\Home\New.cshtml" />
     <Content Remove="Views\Home\Privacy.cshtml" />
   </ItemGroup>
 

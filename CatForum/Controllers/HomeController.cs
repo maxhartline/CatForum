@@ -20,19 +20,13 @@ namespace CatForum.Controllers
         // 2. Perform the functionality/work to fulfill the request
         // 3. Return the View to display in the response
 
+        // Below action method doesn't perform any work, just returns the New View
+        // The system uses the View with the same name as the method (Index.cshtml)
+
         public IActionResult Index()
         {
             return View();
-        }
-
-        // Below action method doesn't perform any work, just returns the New View
-        // The system uses the View with the same name as the method (New.cshtml)
-  
-        // Adding this page
-        public IActionResult New()
-        {
-            return View();
-        }
+        }  
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
