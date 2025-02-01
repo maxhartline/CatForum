@@ -25,9 +25,11 @@ namespace CatForum.Controllers
             return View();
         }
 
-        // Privacy action method doesn't perform any work, just returns the Privacy View
-        // The system uses the View with the same name as the method (Privacy.cshtml)
-        public IActionResult Privacy()
+        // Below action method doesn't perform any work, just returns the New View
+        // The system uses the View with the same name as the method (New.cshtml)
+  
+        // Adding this page
+        public IActionResult New()
         {
             return View();
         }
