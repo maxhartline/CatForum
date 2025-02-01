@@ -50,14 +50,27 @@ namespace CatForum.Controllers
         }
 
         // POST: Discussions/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Title,Content,ImageFilename,CreateDate,DiscussionId")] Discussion discussion)
+        // Add IFormFile? ImageFile as a separate parameter so that the value from uploaded file is automatically assigned to the corresponding parameter
+        public async Task<IActionResult> Create([Bind("Title,Content,ImageFilename,CreateDate,DiscussionId")] Discussion discussion, IFormFile? ImageFile)
         {
             if (ModelState.IsValid)
             {
+                // Check if image file is uploaded
+                if (ImageFile != null)
+                {
+                    // Rename the uploaded file to a guid (unique filename) and set before saving in database
+                    discussion.ImageFilename = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName);
+
+                    // Save the uploaded file to the wwwroot/images folder
+                    string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", discussion.ImageFilename);
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await ImageFile.CopyToAsync(fileStream);
+                    }
+                }
+
                 _context.Add(discussion);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
