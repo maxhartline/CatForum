@@ -6,6 +6,8 @@
 
 <h1>Index</h1>
 
+<!-- This is where all discussions are listed - display a thumbnail of the image for each -->
+
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -37,7 +39,11 @@
                 @Html.DisplayFor(modelItem => item.Content)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ImageFilename)
+                <!-- If there is an image filename, display the image -->
+                @if (!string.IsNullOrEmpty(item.ImageFilename))
+                {
+                    <img src="@Url.Content("~/images/" + item.ImageFilename)" alt="@item.Title" class="img-thumbnail" style="width: 100px; height: 100px;" /> // Adjust thumbnail size as needed
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CreateDate)
