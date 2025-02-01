@@ -28,6 +28,12 @@ namespace CatForum.Controllers
             return View();
         }  
 
+        // Create action method with corresponding view to display a specific discussion when clicked
+        public IActionResult GetDiscussion()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
