@@ -1,4 +1,7 @@
-﻿namespace CatForum.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace CatForum.Models
 {
     public class Discussion
     {
@@ -15,5 +18,10 @@
 
         // Navigation property - discussion can have many comments
         public List<Comment>? Comments { get; set; }
+
+        // Image file upload property 
+        [NotMapped]
+        [Display(Name = "Image")]
+        public IFormFile? ImageFile { get; set; }
     }
 }

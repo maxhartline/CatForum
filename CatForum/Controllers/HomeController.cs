@@ -1,6 +1,8 @@
 using System.Diagnostics;
+using Azure.Core;
 using CatForum.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace CatForum.Controllers
 {
@@ -13,11 +15,18 @@ namespace CatForum.Controllers
             _logger = logger;
         }
 
+        // Action methods handle the HTTP request
+        // 1. Receive any inputs from the request
+        // 2. Perform the functionality/work to fulfill the request
+        // 3. Return the View to display in the response
+
         public IActionResult Index()
         {
             return View();
         }
 
+        // Privacy action method doesn't perform any work, just returns the Privacy View
+        // The system uses the View with the same name as the method (Privacy.cshtml)
         public IActionResult Privacy()
         {
             return View();
