@@ -71,6 +71,9 @@ namespace CatForum.Controllers
                     }
                 }
 
+                // Add current date and time to discussion post
+                discussion.CreateDate = DateTime.Now;
+
                 _context.Add(discussion);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<CatForum.Models.Discussion>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "My Posts";
 }
 
-<h1>Index</h1>
+<h1>My Posts</h1>
 
 <!-- This is where all discussions are listed - display a thumbnail of the image for each -->
 
@@ -21,10 +21,10 @@
                 @Html.DisplayNameFor(model => model.Content)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ImageFilename)
+                Image
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CreateDate)
+                Date
             </th>
             <th></th>
         </tr>
