@@ -113,6 +113,14 @@ namespace CatForum.Controllers
             {
                 try
                 {
+                    // Fetch the original post so that the date remains the same when the post is edited
+                    var originalDiscussion = await _context.Discussion.AsNoTracking().FirstOrDefaultAsync(d => d.DiscussionId == discussion.DiscussionId);
+
+                    if (originalDiscussion != null)
+                    {
+                        discussion.CreateDate = originalDiscussion.CreateDate; // Preserve the original date
+                    }
+
                     _context.Update(discussion);
                     await _context.SaveChangesAsync();
                 }

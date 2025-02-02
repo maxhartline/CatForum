@@ -22,17 +22,9 @@
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
             <div class="form-group mt-3">
-                <label asp-for="ImageFile" class="form-label"></label>
-
-                @if (Model.ImageFile != null)
-                {
-                    <div>
-                        <!-- Display current image if it exists -->
-                        <img src="@Url.Content("~/images/" + Model.ImageFile)" alt="Current Image" class="img-fluid mb-2" />
-                    </div>
-                }
-                <input type="file" asp-for="ImageFile" class="form-control" />
-                <span asp-validation-for="ImageFile" class="text-danger"></span>
+                <label asp-for="ImageFilename" class="form-label fs-5">Image</label>
+                <input asp-for="ImageFilename" class="form-control" readonly />
+                <span asp-validation-for="ImageFilename" class="text-danger"></span>
             </div>
             <input type="hidden" asp-for="DiscussionId" />
             <div class="form-group">
