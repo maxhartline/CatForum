@@ -4,17 +4,19 @@
     ViewData["Title"] = "My Posts";
 }
 
-<h1>My Posts</h1>
-
 <!-- This is where all discussions are listed - display a thumbnail of the image for each -->
 
+<h2 class="mt-4">My Posts</h2>
+<hr />
+
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary text-black mb-3" style="background-color: white; border: 1px solid black;">Create New</a>
 </p>
+
 <table class="table">
     <thead>
         <tr>
-            <th>
+            <th class="ps-3">
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
@@ -24,7 +26,7 @@
                 Image
             </th>
             <th>
-                Date
+                Date Posted
             </th>
             <th></th>
         </tr>
@@ -32,7 +34,7 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
+            <td class="ps-3">
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
@@ -42,17 +44,17 @@
                 <!-- If there is an image filename, display the image -->
                 @if (!string.IsNullOrEmpty(item.ImageFilename))
                 {
-                    <img src="@Url.Content("~/images/" + item.ImageFilename)" alt="@item.Title" class="img-thumbnail" style="width: 100px; height: 100px;" /> // Adjust thumbnail size as needed
+                    <img src="@Url.Content("~/images/" + item.ImageFilename)" alt="@item.Title" style="width: 100px; height: 100px;" />
                 }
             </td>
             <td>
                     @item.CreateDate.ToString("MMMM d, yyyy")
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.DiscussionId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.DiscussionId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.DiscussionId">Delete</a>
-            </td>
+                <td>
+                    <a asp-controller="Home" asp-action="GetDiscussion" asp-route-id="@item.DiscussionId" class="text-dark">View</a> |
+                    <a asp-action="Edit" asp-route-id="@item.DiscussionId" class="text-dark">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.DiscussionId" class="text-dark">Delete</a>
+                </td>
         </tr>
 }
     </tbody>

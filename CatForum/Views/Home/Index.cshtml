@@ -45,7 +45,7 @@
                         <!-- Left side - title, date, and number of comments -->
                         <div class="me-3">
                             <!-- Display title, clickable link that takes users to the specific post -->
-                            <h5 class="card-title fs-3">
+                            <h5 class="card-title fs-3 mb-3">
                                 <a href="@Url.Action("GetDiscussion", "Home", new { id = item.DiscussionId })" class="text-decoration-none text-dark">
                                     @item.Title
                                 </a>
@@ -60,10 +60,12 @@
                             <p class="small mb-1">@timeAgo</p>
                         </div>
 
-                        <!-- Right side - thumbnail image -->
+                        <!-- Right side - thumbnail image, also clickable link that takes users to the specific post -->
                         @if (!string.IsNullOrEmpty(item.ImageFilename))
                         {
-                            <img src="@Url.Content("~/images/" + item.ImageFilename)" alt="Image" style="width: 150px; height: 100px;" />
+                            <a href="@Url.Action("GetDiscussion", "Home", new { id = item.DiscussionId })">
+                                <img src="@Url.Content("~/images/" + item.ImageFilename)" alt="Image" style="width: 150px; height: 100px;" />
+                            </a>
                         }
                     </div>
                 </div>
