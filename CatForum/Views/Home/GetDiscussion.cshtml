@@ -16,25 +16,27 @@
         <dd class="fs-5">
             @Html.DisplayFor(model => model.Content)
         </dd>      
-        <dd>
+        <dd class="mt-4">
             <!-- Display large image for post -->
             <img src="@Url.Content("~/images/" + Model.ImageFilename)" alt="@Model.Title" class="img-fluid" style="width: 100%; max-width: 500px; max-height: auto;" />
         </dd>
         <!-- Display post date -->
-        <dd">
+        <dd class="mt-2">
             <i class="fa-regular fa-calendar"></i>
             @Model.CreateDate.ToString("MMMM d, yyyy")
         </dd>
     </dl>
 </div>
 
-<!-- Link to add new comment -->
+<!-- Button to add new comment -->
 <div>
-    <a asp-controller="Comments" asp-action="Create" asp-route-discussionId="@Model.DiscussionId">Add New Comment</a>
+    <a asp-controller="Comments" asp-action="Create" asp-route-discussionId="@Model.DiscussionId" class="btn text-black fs-6" style="background-color: white; border: 1px solid black; text-decoration: none;">
+        Add New Comment
+    </a>
 </div>
 
 <!-- Display comments under post, descending order -->
-<h3>Comments</h3>
+<h4 class="mt-4">Comments</h4>
 @if (Model.Comments != null && Model.Comments.Any())
 {
     <ul>
