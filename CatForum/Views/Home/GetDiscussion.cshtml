@@ -39,14 +39,14 @@
 <h4 class="mt-4">Comments</h4>
 @if (Model.Comments != null && Model.Comments.Any())
 {
-    <ul>
+    <div>
         @foreach (var comment in Model.Comments.OrderByDescending(c => c.CreateDate))
         {
-            <li>
+            <div class="comment-box" style="background-color: white; border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; border-radius: 5px;">
                 <strong>@comment.CreateDate.ToString("MMMM dd, yyyy")</strong>: @comment.Content
-            </li>
+            </div>
         }
-    </ul>
+    </div>
 }
 else
 {
