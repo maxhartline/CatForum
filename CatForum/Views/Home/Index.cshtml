@@ -2,64 +2,83 @@
     ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-6">Cat Forum</h1>
-    <p class="fs-4">A forum community dedicated to cat owners and enthusiasts. Come join the discussion about breeds, 
-        behavior, health, nutrition, grooming, adoption, training, accessories, housing, and more!</p>
-</div>
+<div class="container mt-4">
+    <div class="row">
+        <!-- Left column - discussion posts -->
+        <div class="col-md-8">
+            @foreach (var item in Model)
+            {
+                // Determine how long ago post was made (minutes, hours, days, weeks, months, years)
+                var timeDifference = DateTime.Now - item.CreateDate;
+                string timeAgo = string.Empty;
 
-@foreach (var item in Model)
-{
-    // Determine how long ago post was made (minutes, hours, days, weeks, months, years)
-    var timeDifference = DateTime.Now - item.CreateDate;
-    string timeAgo = string.Empty;
+                if (timeDifference.Days >= 365)
+                {
+                    int years = timeDifference.Days / 365;
+                    timeAgo = $"{years} year{(years > 1 ? "s" : "")} ago";
+                }
+                else if (timeDifference.Days >= 30)
+                {
+                    int months = timeDifference.Days / 30;
+                    timeAgo = $"{months} month{(months > 1 ? "s" : "")} ago";
+                }
+                else if (timeDifference.Days >= 7)
+                {
+                    int weeks = timeDifference.Days / 7;
+                    timeAgo = $"{weeks} week{(weeks > 1 ? "s" : "")} ago";
+                }
+                else if (timeDifference.Days > 0)
+                {
+                    timeAgo = $"{timeDifference.Days} day{(timeDifference.Days > 1 ? "s" : "")} ago";
+                }
+                else if (timeDifference.Hours > 0)
+                {
+                    timeAgo = $"{timeDifference.Hours} hour{(timeDifference.Hours > 1 ? "s" : "")} ago";
+                }
+                else
+                {
+                    timeAgo = $"{timeDifference.Minutes} minute{(timeDifference.Minutes > 1 ? "s" : "")} ago";
+                }
 
-    if (timeDifference.Days >= 365)
-    {
-        int years = timeDifference.Days / 365;
-        timeAgo = $"{years} year{(years > 1 ? "s" : "")} ago";
-    }
-    else if (timeDifference.Days >= 30)
-    {
-        int months = timeDifference.Days / 30;
-        timeAgo = $"{months} month{(months > 1 ? "s" : "")} ago";
-    }
-    else if (timeDifference.Days >= 7)
-    {
-        int weeks = timeDifference.Days / 7;
-        timeAgo = $"{weeks} week{(weeks > 1 ? "s" : "")} ago";
-    }
-    else if (timeDifference.Days > 0)
-    {
-        timeAgo = $"{timeDifference.Days} day{(timeDifference.Days > 1 ? "s" : "")} ago";
-    }
-    else if (timeDifference.Hours > 0)
-    {
-        timeAgo = $"{timeDifference.Hours} hour{(timeDifference.Hours > 1 ? "s" : "")} ago";
-    }
-    else
-    {
-        timeAgo = $"{timeDifference.Minutes} minute{(timeDifference.Minutes > 1 | timeDifference.Minutes < 1 ? "s" : "")} ago";
-    }
+                <div class="card mb-3 shadow-sm">
+                    <div class="card-body d-flex justify-content-between">
+                        <!-- Left side - title, date, and number of comments -->
+                        <div class="me-3">
+                            <!-- Display title, clickable link that takes users to the specific post -->
+                            <h5 class="card-title fs-3">
+                                <a href="@Url.Action("GetDiscussion", "Home", new { id = item.DiscussionId })" class="text-decoration-none text-dark">
+                                    @item.Title
+                                </a>
+                            </h5>
 
-    <div>
-        <!-- Display image thumbnail -->
-        @if (!string.IsNullOrEmpty(item.ImageFilename))
-        {
-            <img src="@Url.Content("~/images/" + item.ImageFilename)" alt="Image" style="width: 100px; height: 100px;" />
-        }
+                            <!-- Display number of comments, defaulting to 0 if there are none -->
+                            <p class="mb-1 small">
+                                @(item.Comments?.Count ?? 0) comment@((item.Comments?.Count ?? 0) == 1 ? "" : "s")
+                            </p>
 
-        <!-- Display title, clickable link that takes users to the specific post -->
-        <h2>
-            <a href="@Url.Action("GetDiscussion", "Home", new { id = item.DiscussionId })">
-                @item.Title
-            </a>
-        </h2>
+                            <!-- Display date - how long ago post was made -->
+                            <p class="small mb-1">@timeAgo</p>
+                        </div>
 
-        <!-- Display number of comments, defaulting to 0 if there are none -->
-        <p>@(item.Comments?.Count ?? 0) comment@((item.Comments?.Count ?? 0) == 1 ? "" : "s")</p>
+                        <!-- Right side - thumbnail image -->
+                        @if (!string.IsNullOrEmpty(item.ImageFilename))
+                        {
+                            <img src="@Url.Content("~/images/" + item.ImageFilename)" alt="Image" style="width: 150px; height: 100px;" />
+                        }
+                    </div>
+                </div>
+            }
+        </div>
 
-        <!-- Display date - how long ago post was made -->
-        <p>@timeAgo</p>
+        <!-- Right column - forum title and about -->
+        <div class="col-md-4">
+            <div class="card bg-white p-4 shadow">
+                <h1 class="display-6">Cat Forum</h1>
+                <p class="fs-5">
+                    A forum community dedicated to cat owners and enthusiasts. Come join the discussion about breeds,
+                    behavior, health, nutrition, grooming, adoption, training, accessories, housing, and more!
+                </p>
+            </div>
+        </div>
     </div>
-}
+</div>
