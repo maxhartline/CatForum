@@ -22,25 +22,11 @@ namespace CatForum.Controllers
         // GET: Discussions
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Discussion.ToListAsync());
-        }
+            var discussions = await _context.Discussion
+                                .OrderByDescending(d => d.CreateDate) // Sort by descending date
+                                .ToListAsync();
 
-        // GET: Discussions/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var discussion = await _context.Discussion
-                .FirstOrDefaultAsync(m => m.DiscussionId == id);
-            if (discussion == null)
-            {
-                return NotFound();
-            }
-
-            return View(discussion);
+            return View(discussions);
         }
 
         // GET: Discussions/Create

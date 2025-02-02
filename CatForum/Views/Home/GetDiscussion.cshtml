@@ -1,24 +1,27 @@
 ﻿@model CatForum.Models.Discussion
 
 @{
-    ViewData["Title"] = Model.Title; // Make page title the post title
+    ViewData["Title"] = Model.Title; // Make the post title the page title
 }
 
-<h1>@Model.Title</h1>
 <!-- This shows a specific discussion - display a large image -->
+
+
+<h2 class="mt-4">@Model.Title</h2>
+<hr />
+
 <div>
-    <hr />
     <dl class="row">
         <!-- Display post content -->
-        <dd class="col-sm-10">
+        <dd class="fs-5">
             @Html.DisplayFor(model => model.Content)
         </dd>      
-        <dd class="col-sm-10">
+        <dd>
             <!-- Display large image for post -->
-            <img src="@Url.Content("~/images/" + Model.ImageFilename)" alt="@Model.Title" class="img-fluid" style="max-width: 500px; max-height: auto;" />
+            <img src="@Url.Content("~/images/" + Model.ImageFilename)" alt="@Model.Title" class="img-fluid" style="width: 100%; max-width: 500px; max-height: auto;" />
         </dd>
         <!-- Display post date -->
-        <dd class="col-sm-10">
+        <dd">
             <i class="fa-regular fa-calendar"></i>
             @Model.CreateDate.ToString("MMMM d, yyyy")
         </dd>

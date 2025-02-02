@@ -27,15 +27,12 @@
                 <span asp-validation-for="ImageFilename" class="text-danger"></span>
             </div>
             <input type="hidden" asp-for="DiscussionId" />
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <div class="form-group mt-4">
+                <input type="submit" value="Save" class="btn text-black fs-6 me-1" style="background-color: white; border: 1px solid black;" />
+                <a href="@Url.Action("Index")" class="btn text-black fs-6" style="background-color: #f5f5f5; border: 1px solid black;">Back to Posts</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
