@@ -4,7 +4,7 @@
     ViewData["Title"] = "New Post";
 }
 
-<h1>New Post</h1>
+<h2 class="mt-4">New Post</h2>
 
 <hr />
 <div class="row">
@@ -12,24 +12,24 @@
         <!-- Add enctype in order to allow file inputs -->
         <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
+            <div class="form-group mt-3">
+                <label asp-for="Title" class="control-label mb-2 fs-5"></label>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Content" class="control-label"></label>
-                <input asp-for="Content" class="form-control" />
+            <div class="form-group mt-3">
+                <label asp-for="Content" class="control-label mb-2 fs-5"></label>
+                <textarea asp-for="Content" class="form-control" rows="5"></textarea>
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
             <!-- Add file input, ImageFile is the file property that was added to the Discussion model -->
-            <div class="form-group">
-                <label asp-for="ImageFile" class="form-label"></label>
+            <div class="form-group mt-3">
+                <label asp-for="ImageFile" class="form-label fs-5"></label>
                 <input type="file" asp-for="ImageFile" class="form-control" />
                 <span asp-validation-for="ImageFile" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <div class="form-group mt-4">
+                <input type="submit" value="Post" class="btn text-black fs-5" style="background-color: white; border: 1px solid black;" />
             </div>
             <!-- When you press the Submit button, the browser assembles the <input> elements into a collection of text-based key/value pairs, then sends the data to a web server.-->
         </form>

@@ -37,7 +37,7 @@
                 }
                 else
                 {
-                    timeAgo = $"{timeDifference.Minutes} minute{(timeDifference.Minutes > 1 ? "s" : "")} ago";
+                    timeAgo = $"{timeDifference.Minutes} minute{(timeDifference.Minutes > 1 | timeDifference.Minutes < 1 ? "s" : "")} ago";
                 }
 
                 <div class="card mb-3 shadow-sm">
