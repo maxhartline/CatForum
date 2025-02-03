@@ -5,6 +5,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<CatForumContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("CatForumContext") ?? throw new InvalidOperationException("Connection string 'CatForumContext' not found.")));
 
+// Assignment 1 final commit
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

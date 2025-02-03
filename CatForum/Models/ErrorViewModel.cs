@@ -1,3 +1,5 @@
+// Assignment 1 final commit
+
 namespace CatForum.Models
 {
     public class ErrorViewModel

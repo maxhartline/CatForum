@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using CatForum.Models;
 
+// Assignment 1 final commit
+
 namespace CatForum.Data
 {
     public class CatForumContext : DbContext

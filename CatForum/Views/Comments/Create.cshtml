@@ -1,4 +1,6 @@
-﻿@model CatForum.Models.Comment
+﻿<!-- Assignment 1 final commit -->
+
+@model CatForum.Models.Comment
 
 @{
     ViewData["Title"] = "Create Comment";
@@ -19,7 +21,7 @@
             </div>
             <div class="form-group mt-4">
                 <input type="submit" value="Submit" class="btn text-black fs-6 me-1" style="background-color: white; border: 1px solid black;" />
-                <a asp-controller="Home" asp-action="Index" class="btn text-black fs-6" style="background-color: #f5f5f5; border: 1px solid black;">Back to Post</a>
+                <a asp-controller="Home" asp-action="GetDiscussion" asp-route-id="@Model.DiscussionId" class="btn text-black fs-6" style="background-color: #f5f5f5; border: 1px solid black;">Back to Post</a>
             </div>
         </form>
     </div>

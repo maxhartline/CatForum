@@ -1,4 +1,6 @@
-﻿namespace CatForum.Models
+﻿// Assignment 1 final commit
+
+namespace CatForum.Models
 {
     public class Comment
     {

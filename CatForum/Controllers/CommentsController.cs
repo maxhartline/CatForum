@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using CatForum.Data;
 using CatForum.Models;
 
+// Assignment 1 final commit
+
 namespace CatForum.Controllers
 {
     public class CommentsController : Controller

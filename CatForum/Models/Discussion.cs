@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
+// Assignment 1 final commit
+
 namespace CatForum.Models
 {
     public class Discussion

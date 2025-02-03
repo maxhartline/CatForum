@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
+// Assignment 1 final commit
+
 namespace CatForum.Controllers
 {
     public class HomeController : Controller
