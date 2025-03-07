@@ -7,18 +7,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CatForum.Data;
 using CatForum.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 // Assignment 1 final commit
 
 namespace CatForum.Controllers
 {
+    [Authorize]
     public class CommentsController : Controller
     {
         private readonly CatForumContext _context;
-
-        public CommentsController(CatForumContext context)
+        // Add this
+        private readonly UserManager<ApplicationUser> _userManager;
+                                                           // Add this
+        public CommentsController(CatForumContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            // Add this
+            _userManager = userManager;
         }
 
         // GET: Comments/Create

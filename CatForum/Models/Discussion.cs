@@ -7,9 +7,11 @@ namespace CatForum.Models
     public class Discussion
     {
         // Properties
+        [Required]
         public string Title { get; set; } = string.Empty;
+        [Required]
         public string Content { get; set; } = string.Empty;
-        public string ImageFilename { get; set; } = string.Empty;
+        public string? ImageFilename { get; set; }
         public DateTime CreateDate { get; set; }
 
         // One-to-many relationship between Discussion and Comment - one discussion can have many comments, each comment belongs to one discussion

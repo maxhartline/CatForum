@@ -7,18 +7,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CatForum.Data;
 using CatForum.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 // Assignment 1 final commit
 
 namespace CatForum.Controllers
 {
+    [Authorize]
     public class DiscussionsController : Controller
     {
         private readonly CatForumContext _context;
-
-        public DiscussionsController(CatForumContext context)
+        // Add this
+        private readonly UserManager<ApplicationUser> _userManager;
+                                                                // Add this
+        public DiscussionsController(CatForumContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            // Add this
+            _userManager = userManager;
         }
 
         // GET: Discussions
@@ -45,10 +52,22 @@ namespace CatForum.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Get the user ID for the currently authenticated user
+                var userId = _userManager.GetUserId(User); // This assumes you are using Identity for user management.
+
+                // If user is not logged in, redirect to login page
+                if (userId == null)
+                {
+                    return RedirectToAction("Login", "Account");
+                }
+
+                // Assign the user ID to the discussion's ApplicationUserId foreign key
+                discussion.ApplicationUserId = userId;
+
                 // Check if image file is uploaded
                 if (ImageFile != null)
                 {
-                    // Rename the uploaded file to a guid (unique filename) and set before saving in database
+                    // Rename the uploaded file to a GUID (unique filename) and set it before saving in database
                     discussion.ImageFilename = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName);
 
                     // Save the uploaded file to the wwwroot/images folder
@@ -59,15 +78,20 @@ namespace CatForum.Controllers
                     }
                 }
 
-                // Add current date and time to discussion post
+                // Add the current date and time to the discussion post
                 discussion.CreateDate = DateTime.Now;
 
+                // Add the discussion to the context and save changes
                 _context.Add(discussion);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+                return RedirectToAction(nameof(Index)); // Redirect to the Index action after saving
             }
-            return View(discussion);
+
+            return View(discussion); // If model state is not valid, return the view with validation errors
         }
+
+
 
         // GET: Discussions/Edit/5
         public async Task<IActionResult> Edit(int? id)

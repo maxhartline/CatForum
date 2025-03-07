@@ -34,9 +34,11 @@ namespace CatForum.Controllers
         {
             // Sort discussions by descending order on home page
             var discussions = _context.Discussion
-                              .Include(d => d.Comments) // Include associated comments
-                              .OrderByDescending(d => d.CreateDate)
-                              .ToList();
+                .Include(d => d.Comments)  // Include associated comments
+                .Include(d => d.ApplicationUser) // Include associated ApplicationUser
+                .OrderByDescending(d => d.CreateDate)
+                .ToList();
+
             return View(discussions);
         }  
 
