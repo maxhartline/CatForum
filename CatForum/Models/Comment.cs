@@ -1,4 +1,4 @@
-﻿// Assignment 1 final commit
+﻿using CatForum.Data;
 
 namespace CatForum.Models
 {
@@ -14,5 +14,11 @@ namespace CatForum.Models
 
         // Navigation property - each comment belongs to one discussion - always mae nav properties nullable
         public Discussion? Discussion { get; set; } // First Discussion is the data type, second is the name of the property
+
+        // Foreign key for ApplicationUser
+        public string? ApplicationUserId { get; set; }
+
+        // Nullable navigation property for ApplicationUser
+        public ApplicationUser? ApplicationUser { get; set; }
     }
 }

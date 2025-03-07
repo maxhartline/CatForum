@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-
-// Assignment 1 final commit
+using CatForum.Data;
 
 namespace CatForum.Models
 {
@@ -24,5 +23,11 @@ namespace CatForum.Models
         [NotMapped]
         [Display(Name = "Image")]
         public IFormFile? ImageFile { get; set; }
+
+        // Foreign key for ApplicationUser
+        public string? ApplicationUserId { get; set; }
+
+        // Nullable navigation property for ApplicationUser
+        public ApplicationUser? ApplicationUser { get; set; }
     }
 }
