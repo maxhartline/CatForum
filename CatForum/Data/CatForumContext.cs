@@ -4,12 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using CatForum.Models;
-
-// Assignment 1 final commit
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore; // Add this
 
 namespace CatForum.Data
 {
-    public class CatForumContext : DbContext
+    // Change from DbContext to IdentityDbContext
+    // Change from IdentityDbContext to IdentityDbContext<ApplicationUser>
+    public class CatForumContext : IdentityDbContext<ApplicationUser>
     {
         public CatForumContext (DbContextOptions<CatForumContext> options)
             : base(options)

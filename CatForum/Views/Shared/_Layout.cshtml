@@ -36,13 +36,13 @@
                         <li class="nav-item mx-3">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item mx-3">
-                            <a class="nav-link text-dark" asp-controller="Discussions" asp-action="Index">My Posts</a>
-                        </li>
+                        <!-- Moved 'My Posts' link to _LoginPartial.cshtml -->
                         <li class="nav-item mx-3">
                             <a class="nav-link text-dark" asp-controller="Discussions" asp-action="Create">Create New Post</a>
                         </li>
-                    </ul>
+                     </ul>
+                    <!-- Add this -->
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>

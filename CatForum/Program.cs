@@ -1,9 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using CatForum.Data;
+using Microsoft.AspNetCore.Identity;
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<CatForumContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("CatForumContext") ?? throw new InvalidOperationException("Connection string 'CatForumContext' not found.")));
+                         // Change from IdentityUser to ApplicationUser           // Change this from true to false
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<CatForumContext>();
 
 // Assignment 1 final commit
 
@@ -32,5 +36,6 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
-
+// Add this below line
+app.MapRazorPages().WithStaticAssets();
 app.Run();

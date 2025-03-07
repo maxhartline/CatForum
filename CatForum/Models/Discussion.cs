@@ -13,7 +13,6 @@ namespace CatForum.Models
         public string ImageFilename { get; set; } = string.Empty;
         public DateTime CreateDate { get; set; }
 
-
         // One-to-many relationship between Discussion and Comment - one discussion can have many comments, each comment belongs to one discussion
         // Primary key
         public int DiscussionId { get; set; }

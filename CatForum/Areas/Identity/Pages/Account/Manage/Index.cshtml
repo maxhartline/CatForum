@@ -1,0 +1,47 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Profile";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+
+<h3>@ViewData["Title"]</h3>
+<partial name="_StatusMessage" for="StatusMessage" />
+
+<div class="row">
+    <div class="col-md-6">
+        <form id="profile-form" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+            <div class="form-floating mb-3">
+                <input asp-for="Username" class="form-control" placeholder="Please choose your username." disabled />
+                <label asp-for="Username" class="form-label"></label>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Name" class="form-control" aria-required="true" value="@Model.Input.Name" />
+                <label asp-for="Input.Name">Full Name</label>
+                <span asp-validation-for="Input.Name" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Location" class="form-control" value="@Model.Input.Location" />
+                <label asp-for="Input.Location">Location</label>
+                <span asp-validation-for="Input.Location" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.ImageFilename" class="form-control" value="@Model.Input.ImageFilename" />
+                <label asp-for="Input.ImageFilename">Profile Picture Filename</label>
+                <span asp-validation-for="Input.ImageFilename" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label for="currentProfileImage">Profile Picture</label>
+                <div>
+                    <img src="@Url.Content("~/images/" + Model.Input.ImageFilename)" class="img-thumbnail" style="width: 125px; height: 125px;" />
+                </div>
+            </div>
+            <button id="update-profile-button" type="submit" class="btn text-black fs-6 w-100" style="background-color: #f5f5f5;; border: 1px solid black;">Save</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
