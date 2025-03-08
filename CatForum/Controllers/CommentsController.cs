@@ -42,7 +42,7 @@ namespace CatForum.Controllers
         }
 
         // POST: Comments/Create
-        // This will create the new comment and redirect the user to the "Get Discussion" page if successful (to be done in a later task)
+        // This will create the new comment and redirect the user to the "Get Discussion" page if successful
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("CommentId,Content,CreateDate,DiscussionId")] Comment comment)
@@ -50,13 +50,23 @@ namespace CatForum.Controllers
             if (ModelState.IsValid)
             {
                 comment.CreateDate = DateTime.Now; // Date/time of comment
+
+                // Set the ApplicationUserId to the logged-in user's ID
+                var currentUserId = _userManager.GetUserId(User); // Get the logged-in user's ID
+                comment.ApplicationUserId = currentUserId;
+
+                // Add the comment to the database
                 _context.Add(comment);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("GetDiscussion", "Home", new { id = comment.DiscussionId }); // Redirect user to post they commented on
+
+                // Redirect user to the post they commented on
+                return RedirectToAction("GetDiscussion", "Home", new { id = comment.DiscussionId });
             }
+
             ViewData["DiscussionId"] = new SelectList(_context.Discussion, "DiscussionId", "DiscussionId", comment.DiscussionId);
             return View(comment);
         }
+
 
         private bool CommentExists(int id)
         {

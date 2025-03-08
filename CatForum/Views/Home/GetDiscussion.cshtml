@@ -55,7 +55,25 @@
         @foreach (var comment in Model.Comments.OrderByDescending(c => c.CreateDate))
         {
             <div class="comment-box" style="background-color: white; border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; border-radius: 5px;">
-                <strong>@comment.CreateDate.ToString("MMMM dd, yyyy")</strong>: @comment.Content
+                <div class="d-flex align-items-center">
+                    <!-- Profile picture -->
+                    <img src="@Url.Content("~/images/" + comment.ApplicationUser?.ImageFilename)"
+                         class="rounded-circle me-2"
+                         style="width: 40px; height: 40px; object-fit: cover;">
+
+                    <!-- Username - link to profile -->
+                    <strong>
+                        <a asp-controller="Home" asp-action="Profile" asp-route-id="@comment.ApplicationUser?.Id" class="text-dark">
+                            @comment.ApplicationUser?.DisplayName
+                        </a>
+                    </strong>
+
+                    <!-- Comment date -->
+                    <span class="ms-2 text-muted">@comment.CreateDate.ToString("MMMM d, yyyy")</span>
+                </div>
+
+                <!-- Comment content -->
+                <div class="mt-2 ms-5">@comment.Content</div>
             </div>
         }
     </div>
