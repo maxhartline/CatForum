@@ -86,15 +86,25 @@ namespace CatForum.Controllers
         // Action method for Profile page
         public async Task<IActionResult> Profile(string id)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+            var user = await _context.Users
+                                     .FirstOrDefaultAsync(u => u.Id == id);
 
             if (user == null)
             {
                 return NotFound();
             }
 
-            return View(user);
-        }
+            // Get all discussions where the user is the author
+            var discussions = await _context.Discussion
+                                            .Where(d => d.ApplicationUserId == id)
+                                            .Include(d => d.Comments) // Include comments if needed
+                                            .ToListAsync();
 
+            // Pass the user and discussions directly to the view
+            ViewBag.User = user;
+            ViewBag.Discussions = discussions;
+
+            return View();
+        }
     }
 }

@@ -1,18 +1,106 @@
-﻿@model CatForum.Data.ApplicationUser
+﻿@using CatForum.Data
+@{
+    var user = ViewBag.User as ApplicationUser;
+    var discussions = ViewBag.Discussions as IEnumerable<CatForum.Models.Discussion>;
+}
+
+@{
+    ViewData["Title"] = "Profile";
+}
 
 <h2 class="mt-4">Profile</h2>
-
 <hr />
 
-<div class="d-flex flex-column align-items-start">
-    <img src="@Url.Content("~/images/" + Model.ImageFilename)"
-         class="img-fluid rounded-circle" style="width: 250px; height: 250px; object-fit: cover;" />
-    <div class="mt-3 ms-4">
-        <p><strong class="fs-3">@Model.Name</strong></p>
-        <!-- Add username here -->
-        <p class="fs-5">@Model.Location</p>
+<div class="container mt-4">
+    <div class="row">
+        <!-- Left Column - User Profile Info -->
+        <div class="col-md-3">
+            <div class="d-flex flex-column align-items-center">
+                <img src="@Url.Content("~/images/" + user?.ImageFilename)"
+                     class="img-fluid rounded-circle" style="width: 250px; height: 250px; object-fit: cover;" />
+                <div class="mt-3 text-center">
+                    <strong><p class="fs-3">@user?.Name</p></strong>
+                    <p class="fs-5">
+                        <i class="fa-regular fa-user me-2"></i> @user?.DisplayName
+                    </p>
+                    <p class="fs-5">
+                        <i class="fa-solid fa-location-dot me-2"></i> @user?.Location
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column - Display Discussions in Cards -->
+        <div class="col-md-9">
+            <div class="row">
+                @foreach (var item in discussions)
+                {
+                    // Determine how long ago post was made (minutes, hours, days, weeks, months, years)
+                    var timeDifference = DateTime.Now - item.CreateDate;
+                    string timeAgo = string.Empty;
+
+                    if (timeDifference.Days >= 365)
+                    {
+                        int years = timeDifference.Days / 365;
+                        timeAgo = $"{years} year{(years > 1 ? "s" : "")} ago";
+                    }
+                    else if (timeDifference.Days >= 30)
+                    {
+                        int months = timeDifference.Days / 30;
+                        timeAgo = $"{months} month{(months > 1 ? "s" : "")} ago";
+                    }
+                    else if (timeDifference.Days >= 7)
+                    {
+                        int weeks = timeDifference.Days / 7;
+                        timeAgo = $"{weeks} week{(weeks > 1 ? "s" : "")} ago";
+                    }
+                    else if (timeDifference.Days > 0)
+                    {
+                        timeAgo = $"{timeDifference.Days} day{(timeDifference.Days > 1 ? "s" : "")} ago";
+                    }
+                    else if (timeDifference.Hours > 0)
+                    {
+                        timeAgo = $"{timeDifference.Hours} hour{(timeDifference.Hours > 1 ? "s" : "")} ago";
+                    }
+                    else
+                    {
+                        timeAgo = $"{timeDifference.Minutes} minute{(timeDifference.Minutes > 1 ? "s" : "")} ago";
+                    }
+
+                    <div class="col-md-4 mb-4">
+                        <div class="card shadow-sm">
+                            <div class="card-body d-flex justify-content-between">
+                                <!-- Left side - title, date, and number of comments -->
+                                <div class="me-3">
+                                    <h5 class="card-title fs-3 mb-3">
+                                        <a href="@Url.Action("GetDiscussion", "Home", new { id = item.DiscussionId })" class="text-decoration-none text-dark">
+                                            @item.Title
+                                        </a>
+                                    </h5>
+                                    <p class="mb-1 small">
+                                        Posted by:
+                                        <a asp-controller="Home" asp-action="Profile" asp-route-id="@item.ApplicationUser?.Id" class="text-dark">
+                                            @item.ApplicationUser?.DisplayName
+                                        </a>
+                                    </p>
+                                    <p class="mb-1 small">
+                                        @(item.Comments?.Count ?? 0) comment@((item.Comments?.Count ?? 0) == 1 ? "" : "s")
+                                    </p>
+                                    <p class="small mb-1">@timeAgo</p>
+                                </div>
+
+                                <!-- Right side - thumbnail image -->
+                                @if (!string.IsNullOrEmpty(item.ImageFilename))
+                                {
+                                    <a href="@Url.Action("GetDiscussion", "Home", new { id = item.DiscussionId })">
+                                        <img src="@Url.Content("~/images/" + item.ImageFilename)" alt="Image" style="width: 150px; height: 100px;" />
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
     </div>
 </div>
-
-
-
