@@ -17,5 +17,9 @@ namespace CatForum.Data
         [PersonalData]
         [NotMapped]
         public IFormFile? ImageFile { get; set; } // Optional
+
+        // Add so users must create a custom username
+        [PersonalData]
+        public string DisplayName { get; set; } = string.Empty;
     }
 }

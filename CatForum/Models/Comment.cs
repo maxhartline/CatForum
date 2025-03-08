@@ -16,7 +16,7 @@ namespace CatForum.Models
         public Discussion? Discussion { get; set; } // First Discussion is the data type, second is the name of the property
 
         // Foreign key for ApplicationUser
-        public string? ApplicationUserId { get; set; }
+        public string ApplicationUserId { get; set; } = string.Empty;
 
         // Nullable navigation property for ApplicationUser
         public ApplicationUser? ApplicationUser { get; set; }

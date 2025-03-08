@@ -27,7 +27,7 @@ namespace CatForum.Models
         public IFormFile? ImageFile { get; set; }
 
         // Foreign key for ApplicationUser
-        public string? ApplicationUserId { get; set; }
+        public string ApplicationUserId { get; set; } = string.Empty;
 
         // Nullable navigation property for ApplicationUser
         public ApplicationUser? ApplicationUser { get; set; }

@@ -29,7 +29,15 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+app.UseAuthentication(); // Add this line
+
 app.MapStaticAssets();
+
+// add this
+app.MapControllerRoute(
+    name: "GetDiscussion",
+    pattern: "Home/GetDiscussion/{id?}",
+    defaults: new { controller = "Discussions", action = "GetDiscussion" });
 
 app.MapControllerRoute(
     name: "default",

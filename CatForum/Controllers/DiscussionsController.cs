@@ -14,7 +14,6 @@ using Microsoft.AspNetCore.Identity;
 
 namespace CatForum.Controllers
 {
-    [Authorize]
     public class DiscussionsController : Controller
     {
         private readonly CatForumContext _context;
@@ -28,14 +27,41 @@ namespace CatForum.Controllers
             _userManager = userManager;
         }
 
-        // GET: Discussions
+        // GET: Discussions - display all posts
         public async Task<IActionResult> Index()
         {
+            // Get the current user ID
+            var userId = _userManager.GetUserId(User);
+
+            // Get only discussions created by the current user
             var discussions = await _context.Discussion
-                                .OrderByDescending(d => d.CreateDate) // Sort by descending date
+                                .Where(d => d.ApplicationUserId == userId) // Filter the Discussion objects, selecting only those where the ApplicationUserId matches the current user's Id
+                                .Include(d => d.ApplicationUser) // Include the user details
+                                .OrderByDescending(d => d.CreateDate)
                                 .ToListAsync();
 
             return View(discussions);
+        }
+
+        // GET: Discussions/GetDiscussion/5 - display details of a single post
+        public async Task<IActionResult> GetDiscussion(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var discussion = await _context.Discussion
+                .Include(d => d.ApplicationUser)
+                .Include(d => d.Comments)
+                .FirstOrDefaultAsync(m => m.DiscussionId == id);
+
+            if (discussion == null)
+            {
+                return NotFound();
+            }
+
+            return View("~/Views/Home/GetDiscussion.cshtml", discussion);
         }
 
         // GET: Discussions/Create

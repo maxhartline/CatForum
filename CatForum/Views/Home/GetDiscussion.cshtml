@@ -1,6 +1,4 @@
-﻿<!-- Assignment 1 final commit -->
-
-@model CatForum.Models.Discussion
+﻿@model CatForum.Models.Discussion
 
 @{
     ViewData["Title"] = Model.Title; // Make the post title the page title
@@ -11,6 +9,11 @@
 
 <h2 class="mt-4">@Model.Title</h2>
 <hr />
+
+@if (ViewData["TestMethod"] != null)
+{
+    <p>@ViewData["TestMethod"]</p>
+}
 
 <div>
     <dl class="row">
@@ -26,6 +29,11 @@
         <dd class="mt-2">
             <i class="fa-regular fa-calendar"></i>
             @Model.CreateDate.ToString("MMMM d, yyyy")
+        </dd>
+        <!-- Display poster's username and profile picture -->
+        <dd class="mt-2 d-flex align-items-center">
+            <img src="@Url.Content("~/images/" + Model.ApplicationUser?.ImageFilename)" class="rounded-circle me-2" style="width: 40px; height: 40px; object-fit: cover;">
+            <strong>@Model.ApplicationUser?.DisplayName</strong>
         </dd>
     </dl>
 </div>

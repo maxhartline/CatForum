@@ -1,6 +1,4 @@
-﻿<!-- Assignment 1 final commit -->
-
-@{
+﻿@{
     ViewData["Title"] = "Home";
 }
 
@@ -52,7 +50,10 @@
                                     @item.Title
                                 </a>
                             </h5>
-
+                            <!-- Display username -->
+                            <p class="mb-1 small">
+                                Posted by: @item.ApplicationUser?.DisplayName
+                            </p>
                             <!-- Display number of comments, defaulting to 0 if there are none -->
                             <p class="mb-1 small">
                                 @(item.Comments?.Count ?? 0) comment@((item.Comments?.Count ?? 0) == 1 ? "" : "s")

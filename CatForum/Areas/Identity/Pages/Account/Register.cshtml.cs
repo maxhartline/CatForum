@@ -40,6 +40,7 @@ namespace CatForum.Areas.Identity.Pages.Account
         public string Location { get; set; }
         public string ImageFilename { get; set; }
         public IFormFile ImageFile { get; set; }
+        public string DisplayName { get; set; }
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
@@ -122,6 +123,9 @@ namespace CatForum.Areas.Identity.Pages.Account
 
             [Display(Name = "Profile Picture")]
             public IFormFile ImageFile { get; set; }
+
+            [Display(Name = "Username")]
+            public string DisplayName { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -147,6 +151,7 @@ namespace CatForum.Areas.Identity.Pages.Account
                 var applicationUser = (ApplicationUser)user;
                 applicationUser.Name = Input.Name;
                 applicationUser.Location = Input.Location;
+                applicationUser.DisplayName = Input.DisplayName;
 
                 if (Input.ImageFile != null)
                 {
