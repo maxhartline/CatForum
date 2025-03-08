@@ -64,6 +64,7 @@ namespace CatForum.Controllers
             return View("~/Views/Home/GetDiscussion.cshtml", discussion);
         }
 
+        [Authorize]
         // GET: Discussions/Create
         public IActionResult Create()
         {
@@ -72,6 +73,7 @@ namespace CatForum.Controllers
 
         // POST: Discussions/Create
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         // Add IFormFile? ImageFile as a separate parameter so that the value from uploaded file is automatically assigned to the corresponding parameter
         public async Task<IActionResult> Create([Bind("Title,Content,ImageFilename,CreateDate,DiscussionId")] Discussion discussion, IFormFile? ImageFile)
