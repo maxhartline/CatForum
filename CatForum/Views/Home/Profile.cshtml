@@ -32,7 +32,7 @@
 
         <!-- Right Column - Display Discussions in Cards -->
         <div class="col-md-9">
-            <div class="row">
+            <div class="d-flex flex-column">
                 @foreach (var item in discussions)
                 {
                     // Determine how long ago post was made (minutes, hours, days, weeks, months, years)
@@ -67,40 +67,36 @@
                         timeAgo = $"{timeDifference.Minutes} minute{(timeDifference.Minutes > 1 ? "s" : "")} ago";
                     }
 
-                    <div class="col-md-4 mb-4">
-                        <div class="card shadow-sm">
-                            <div class="card-body d-flex justify-content-between">
-                                <!-- Left side - title, date, and number of comments -->
-                                <div class="me-3">
-                                    <h5 class="card-title fs-3 mb-3">
-                                        <a href="@Url.Action("GetDiscussion", "Home", new { id = item.DiscussionId })" class="text-decoration-none text-dark">
-                                            @item.Title
-                                        </a>
-                                    </h5>
-                                    <p class="mb-1 small">
-                                        Posted by:
-                                        <a asp-controller="Home" asp-action="Profile" asp-route-id="@item.ApplicationUser?.Id" class="text-dark">
-                                            @item.ApplicationUser?.DisplayName
-                                        </a>
-                                    </p>
-                                    <p class="mb-1 small">
-                                        @(item.Comments?.Count ?? 0) comment@((item.Comments?.Count ?? 0) == 1 ? "" : "s")
-                                    </p>
-                                    <p class="small mb-1">@timeAgo</p>
-                                </div>
-
-                                <!-- Right side - thumbnail image -->
-                                @if (!string.IsNullOrEmpty(item.ImageFilename))
-                                {
-                                    <a href="@Url.Action("GetDiscussion", "Home", new { id = item.DiscussionId })">
-                                        <img src="@Url.Content("~/images/" + item.ImageFilename)" alt="Image" style="width: 150px; height: 100px;" />
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-body d-flex justify-content-between">
+                            <!-- Left side - title, date, and number of comments -->
+                            <div class="me-3">
+                                <h5 class="card-title fs-3 mb-3">
+                                    <a href="@Url.Action("GetDiscussion", "Home", new { id = item.DiscussionId })" class="text-decoration-none text-dark">
+                                        @item.Title
                                     </a>
-                                }
+                                </h5>
+                                <p class="mb-1 small">
+                                    Posted by:
+                                    <a asp-controller="Home" asp-action="Profile" asp-route-id="@item.ApplicationUser?.Id" class="text-dark">
+                                        @item.ApplicationUser?.DisplayName
+                                    </a>
+                                </p>
+                                <p class="mb-1 small">
+                                    @(item.Comments?.Count ?? 0) comment@((item.Comments?.Count ?? 0) == 1 ? "" : "s")
+                                </p>
+                                <p class="small mb-1">@timeAgo</p>
                             </div>
+
+                            <!-- Right side - thumbnail image -->
+                            @if (!string.IsNullOrEmpty(item.ImageFilename))
+                            {
+                                <a href="@Url.Action("GetDiscussion", "Home", new { id = item.DiscussionId })">
+                                    <img src="@Url.Content("~/images/" + item.ImageFilename)" alt="Image" style="width: 150px; height: 100px;" />
+                                </a>
+                            }
                         </div>
                     </div>
                 }
             </div>
         </div>
-    </div>
-</div>
