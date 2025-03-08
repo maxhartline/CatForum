@@ -50,9 +50,12 @@
                                     @item.Title
                                 </a>
                             </h5>
-                            <!-- Display username -->
+                            <!-- Display username, link to profile page -->
                             <p class="mb-1 small">
-                                Posted by: @item.ApplicationUser?.DisplayName
+                                Posted by:
+                                <a asp-controller="Home" asp-action="Profile" asp-route-id="@item.ApplicationUser?.Id" class="text-dark">
+                                    @item.ApplicationUser?.DisplayName
+                                </a>
                             </p>
                             <!-- Display number of comments, defaulting to 0 if there are none -->
                             <p class="mb-1 small">

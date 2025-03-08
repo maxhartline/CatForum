@@ -27,9 +27,9 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
-app.UseAuthorization();
-
 app.UseAuthentication(); // Add this line
+
+app.UseAuthorization();
 
 app.MapStaticAssets();
 
