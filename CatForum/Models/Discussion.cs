@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using CatForum.Data;
 
+// Assignment 2 final commit 
 namespace CatForum.Models
 {
     public class Discussion

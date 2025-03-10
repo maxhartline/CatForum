@@ -8,12 +8,15 @@
     ViewData["Title"] = "Profile";
 }
 
+<!-- Assignment 2 final commit -->
+
+
 <h2 class="mt-4">Profile</h2>
 <hr />
 
 <div class="container mt-4">
     <div class="row">
-        <!-- Left Column - User Profile Info -->
+        <!-- Left Column - profile info -->
         <div class="col-md-3">
             <div class="d-flex flex-column align-items-center">
                 <img src="@Url.Content("~/images/" + user?.ImageFilename)"
@@ -24,13 +27,21 @@
                         <i class="fa-regular fa-user me-2"></i> @user?.DisplayName
                     </p>
                     <p class="fs-5">
-                        <i class="fa-solid fa-location-dot me-2"></i> @user?.Location
+                        <i class="fa-solid fa-location-dot me-2"></i>
+                        @if (!string.IsNullOrWhiteSpace(user?.Location))
+                        {
+                            @user.Location
+                        }
+                        else
+                        {
+                            @:No location
+                        }
                     </p>
                 </div>
             </div>
         </div>
 
-        <!-- Right Column - Display Discussions in Cards -->
+        <!-- Right Column - display discussions -->
         <div class="col-md-9">
             <div class="d-flex flex-column">
                 @foreach (var item in discussions)
@@ -67,7 +78,7 @@
                         timeAgo = $"{timeDifference.Minutes} minute{(timeDifference.Minutes > 1 ? "s" : "")} ago";
                     }
 
-                    <div class="card shadow-sm mb-4">
+                    <div class="card shadow-sm mb-3">
                         <div class="card-body d-flex justify-content-between">
                             <!-- Left side - title, date, and number of comments -->
                             <div class="me-3">
@@ -92,7 +103,7 @@
                             @if (!string.IsNullOrEmpty(item.ImageFilename))
                             {
                                 <a href="@Url.Action("GetDiscussion", "Home", new { id = item.DiscussionId })">
-                                    <img src="@Url.Content("~/images/" + item.ImageFilename)" alt="Image" style="width: 150px; height: 100px;" />
+                                    <img src="@Url.Content("~/images/" + item.ImageFilename)" alt="Image" style="width: 175px; height: 125px;" />
                                 </a>
                             }
                         </div>

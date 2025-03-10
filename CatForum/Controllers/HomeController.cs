@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-// Assignment 1 final commit
+// Assignment 2 final commit
 
 namespace CatForum.Controllers
 {

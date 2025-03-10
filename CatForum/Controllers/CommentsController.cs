@@ -10,7 +10,7 @@ using CatForum.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 
-// Assignment 1 final commit
+// Assignment 2 final commit
 
 namespace CatForum.Controllers
 {

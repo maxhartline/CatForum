@@ -1,4 +1,4 @@
-﻿<!-- Assignment 1 final commit -->
+﻿<!-- Assignment 2 final commit -->
 
 @model CatForum.Models.Discussion
 
@@ -28,7 +28,14 @@
             Image
         </dt>
         <dd class="col-sm-10 fs-5">
-            @Html.DisplayFor(model => model.ImageFilename)
+            @if (!string.IsNullOrWhiteSpace(Model.ImageFilename))
+            {
+                <img src="@Url.Content("~/images/" + Model.ImageFilename)" alt="Post Image" class="img-fluid" style="max-width: 150px; max-height: 150px; object-fit: cover;" />
+            }
+            else
+            {
+                <p>No image available</p>
+            }
         </dd>
         <dt class="col-sm-2 fs-5">
             Date Posted

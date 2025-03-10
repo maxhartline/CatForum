@@ -1,4 +1,6 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+﻿// Assignment 2 final commit 
+
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
@@ -27,7 +29,6 @@ namespace CatForum.Areas.Identity.Pages.Account.Manage
             _signInManager = signInManager;
         }
 
-        // ADDING THIS
         [BindProperty]
         public string Name { get; set; }
 
@@ -134,9 +135,23 @@ namespace CatForum.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
-            await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
-            return RedirectToPage();
+            // Update user's profile data
+            user.Name = Input.Name;
+            user.Location = Input.Location;
+
+            // Update user in database
+            var result = await _userManager.UpdateAsync(user);
+
+            if (result.Succeeded)
+            {
+                await _signInManager.RefreshSignInAsync(user);
+                StatusMessage = "Your profile has been updated";
+                return RedirectToPage();
+            }
+
+            await LoadAsync(user);
+            return Page();
         }
+
     }
 }

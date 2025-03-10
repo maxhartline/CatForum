@@ -10,7 +10,7 @@ using CatForum.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 
-// Assignment 1 final commit
+// Assignment 2 final commit
 
 namespace CatForum.Controllers
 {
@@ -138,11 +138,9 @@ namespace CatForum.Controllers
         }
 
         // POST: Discussions/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Title,Content,ImageFilename,CreateDate,DiscussionId")] Discussion discussion)
+        public async Task<IActionResult> Edit(int id, [Bind("Title,Content,ImageFilename,DiscussionId")] Discussion discussion)
         {
             if (id != discussion.DiscussionId)
             {
@@ -153,14 +151,19 @@ namespace CatForum.Controllers
             {
                 try
                 {
-                    // Fetch the original post so that the date remains the same when the post is edited
-                    var originalDiscussion = await _context.Discussion.AsNoTracking().FirstOrDefaultAsync(d => d.DiscussionId == discussion.DiscussionId);
+                    // Fetch the original post and preserve the ApplicationUserId and CreateDate
+                    var originalDiscussion = await _context.Discussion
+                        .AsNoTracking()
+                        .FirstOrDefaultAsync(d => d.DiscussionId == discussion.DiscussionId);
 
                     if (originalDiscussion != null)
                     {
-                        discussion.CreateDate = originalDiscussion.CreateDate; // Preserve the original date
+                        // Preserve the ApplicationUserId and CreateDate
+                        discussion.ApplicationUserId = originalDiscussion.ApplicationUserId;
+                        discussion.CreateDate = originalDiscussion.CreateDate;
                     }
 
+                    // Update the discussion in the database
                     _context.Update(discussion);
                     await _context.SaveChangesAsync();
                 }
@@ -179,6 +182,7 @@ namespace CatForum.Controllers
             }
             return View(discussion);
         }
+
 
         // GET: Discussions/Delete/5
         public async Task<IActionResult> Delete(int? id)
